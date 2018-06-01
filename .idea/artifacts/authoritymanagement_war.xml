@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="authoritymanagement:war">
+    <output-path>$PROJECT_DIR$/authoritymanagement/target</output-path>
+    <root id="archive" name="authority-management-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="authoritymanagement:war exploded" />
+    </root>
+  </artifact>
+</component>
