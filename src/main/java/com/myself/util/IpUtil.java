@@ -1,13 +1,19 @@
 package com.myself.util;
 
+import lombok.extern.slf4j.Slf4j;
+import com.sun.deploy.net.HttpUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Enumeration;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Ip工具类
@@ -15,6 +21,7 @@ import java.util.Enumeration;
  * @author Created by zion
  * @Date 2018/3/3
  */
+@Slf4j
 public class IpUtil {
     private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
     /**
@@ -30,6 +37,10 @@ public class IpUtil {
      */
 
     public final static String LOCAL_IP = "127.0.0.1";
+
+    public final static Pattern pattern = Pattern.
+            compile("(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})");
+
 
     /**
      * 获取本地ip
@@ -100,5 +111,90 @@ public class IpUtil {
         } catch (UnknownHostException e) {
             return hostName;
         }
+    }
+
+    /**
+     * 获取外网IP
+     *
+     * @param request
+     * @return
+     */
+    public static String getRemoteIp(HttpServletRequest request){
+        // 最后一跳是正向代理，可能会保留真实客户端IP
+        String ip=request.getHeader("x-real-ip");
+        if (ip==null){
+            ip=request.getRemoteAddr();
+        }
+        //过滤反向代理的IP
+        String[] stemps=ip.split(",");
+        if (stemps!=null&&stemps.length>1){
+            //得到第一个IP，既是客户端的真是IP
+            ip=stemps[0];
+        }
+        ip=ip.trim();
+        if(ip.length()>23){
+            ip=ip.substring(0,23);
+        }
+        return ip;
+    }
+
+    /**
+     * 获取用户的真实IP
+     * @param request
+     * @return
+     */
+    public static String getUserIP(HttpServletRequest request){
+        //优先选取 X-Real-IP
+        String ip=request.getHeader("X-Real-IP");
+        if (StringUtils.isBlank(ip)||"unknown".equalsIgnoreCase(ip)){
+            ip=request.getHeader("x-forwarded-for");
+        }
+        if (StringUtils.isBlank(ip)||"unknown".equalsIgnoreCase(ip)){
+            if ("0:0:0:0:0:0:0:1".equals(ip)){
+                ip=LOCAL_IP;
+            }
+        }
+        if ("unknown".equalsIgnoreCase(ip)) {
+            return LOCAL_IP;
+        }
+
+        int pos=ip.indexOf(",");
+        if (pos>=0){
+            ip=ip.substring(0,pos);
+        }
+        return ip;
+    }
+
+    public static String getLastIpSegment(HttpServletRequest request) {
+        String ip = getUserIP(request);
+        if (ip != null) {
+            ip = ip.substring(ip.lastIndexOf('.') + 1);
+        } else {
+            ip = "0";
+        }
+        return ip;
+    }
+
+    public static boolean isValidIP(HttpServletRequest request) {
+        String ip = getUserIP(request);
+        return isValidIP(ip);
+    }
+
+    /**
+     * 判断我们获取的ip是否是一个符合规则ip
+     *
+     * @param ip
+     * @return
+     */
+    public static boolean isValidIP(String ip) {
+        if (StringUtils.isEmpty(ip)) {
+            log.debug("ip is null. valid result is false");
+            return false;
+        }
+
+        Matcher matcher = pattern.matcher(ip);
+        boolean isValid = matcher.matches();
+        log.debug("valid ip:" + ip + " result is: " + isValid);
+        return isValid;
     }
 }
