@@ -112,11 +112,44 @@
             <artifactId>commons-collections</artifactId>
             <version>3.2.2</version>
         </dependency>
+        <!--commons-codec 是Apache开源组织提供的用于摘要运算、编码的包。在该包中主要分为四类加密：BinaryEncoders、DigestEncoders、LanguageEncoders、NetworkEncoders。-->
+        <!--public void testBase64()-->
+        <!--{-->
+        <!--System.out.println("==============Base64================");-->
+        <!--byte[] data = "jianggujin".getBytes();-->
+        <!--Base64 base64 = new Base64();-->
+        <!--String encode = base64.encodeAsString(data);-->
+        <!--System.out.println(encode);-->
+        <!--System.out.println(new String(base64.decode(encode)));-->
+        <!--}-->
+        <!---->
+        <!--public void testMD5()-->
+        <!--{-->
+        <!--System.out.println("==============MD5================");-->
+        <!--String result = DigestUtils.md5Hex("jianggujin");-->
+        <!--System.out.println(result);-->
+        <!--}-->
+        <!--public void testURLCodec() throws Exception-->
+        <!--{-->
+        <!--System.out.println("==============URLCodec================");-->
+        <!--URLCodec codec = new URLCodec();-->
+        <!--String data = "蒋固金";-->
+        <!--String encode = codec.encode(data, "UTF-8");-->
+        <!--System.out.println(encode);-->
+        <!--System.out.println(codec.decode(encode, "UTF-8"));-->
+        <!--}-->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
@@ -137,11 +170,13 @@
         </dependency>
 
         <!--参数校验-->
+        <!--validation bean 是基于JSR-303标准开发出来的，使用注解方式实现，及其方便，但是这只是一个接口，没有具体实现-->
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
+        <!--Hibernate Validator是一个hibernate独立的包，可以直接引用，他实现了validation bean同时有做了扩展，比较强大-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
