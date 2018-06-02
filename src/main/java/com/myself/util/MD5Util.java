@@ -1,5 +1,6 @@
 package com.myself.util;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Hex;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -9,6 +10,7 @@ import java.util.Random;
  * @author Created by zion
  * @Date 2018/2/22.
  */
+@Slf4j
 public class MD5Util {
     /**
      * 普通MD5
@@ -31,7 +33,7 @@ public class MD5Util {
         for (int i = 0; i < charArray.length; i++) {
             byteArray[i] = (byte) charArray[i];
         }
-
+        //获得密文
         byte[] md5Bytes = md5.digest(byteArray);
         StringBuffer hexValue = new StringBuffer();
         for (int i = 0; i < md5Bytes.length; i++) {
