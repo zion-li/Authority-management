@@ -56,7 +56,6 @@ public class DateUtil {
                 }
             }
         }
-
         return tl.get();
     }
 
@@ -82,6 +81,4 @@ public class DateUtil {
     public static Date parse(String dateStr, String pattern) throws ParseException {
         return getSdf(pattern).parse(dateStr);
     }
-
-
 }
