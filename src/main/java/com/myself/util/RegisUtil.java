@@ -171,7 +171,7 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为Email 符合返回ture
+     * 判断字段是否为Email
      *
      * @param str
      * @return boolean
@@ -221,9 +221,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为正整数正则表达式 >=0 符合返回ture
+     * 判断字段是否为正整数正则表达式 >=0
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isIntegerNegative(String str) {
@@ -231,9 +231,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为负整数正则表达式 <=0 符合返回ture
+     * 判断字段是否为负整数正则表达式 <=0
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isIntegerPositive(String str) {
@@ -241,9 +241,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为DOUBLE 符合返回ture
+     * 判断字段是否为DOUBLE
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isDouble(String str) {
@@ -251,9 +251,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为正浮点数正则表达式 >=0 符合返回ture
+     * 判断字段是否为正浮点数正则表达式 >=0
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isDoubleNegative(String str) {
@@ -261,9 +261,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为负浮点数正则表达式 <=0 符合返回ture
+     * 判断字段是否为负浮点数正则表达式 <=0
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isDoublePositive(String str) {
@@ -271,9 +271,9 @@ public class RegisUtil {
     }
 
     /**
-     * 判断字段是否为年龄 符合返回ture
+     * 判断字段是否为年龄
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isAge(String str) {
@@ -283,7 +283,7 @@ public class RegisUtil {
     /**
      * 判断字符串是不是全部是英文字母
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isEnglish(String str) {
@@ -293,7 +293,7 @@ public class RegisUtil {
     /**
      * 判断字符串是不是全部是英文字母+数字
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isEngNum(String str) {
@@ -303,7 +303,7 @@ public class RegisUtil {
     /**
      * 判断字符串是不是全部是英文字母+数字+下划线
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static boolean isEngNumAndUnderline(String str) {
@@ -313,7 +313,7 @@ public class RegisUtil {
     /**
      * 过滤特殊字符串 返回过滤后的字符串
      *
-     * @param str
+     * @param str 输入字符
      * @return boolean
      */
     public static String filterStr(String str) {
