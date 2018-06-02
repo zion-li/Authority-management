@@ -9,13 +9,16 @@ import lombok.ToString;
 
 import java.util.Set;
 
+/**
+ * 邮件
+ */
 @Getter
 @Setter
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Mail {
+public class Mail extends BaseAttribute {
 
     /**
      * 主题
