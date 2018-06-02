@@ -1,10 +1,12 @@
 package com.myself.util;
 
+import com.google.common.base.Splitter;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 基础的类型转换
@@ -104,6 +106,16 @@ public class CommonConvert {
       return new ArrayList<>(set);
     }
 
+    /**
+     *
+     * @param str
+     * @return
+     */
+    public static List<Integer> splitToListInt(String str) {
+        //去除空格,两个分隔符之间都是空格就去掉,使用omitEmptyStrings
+        //去掉前导、后导空格 trimResults
+        List<String> strList = Splitter.on(",").trimResults().omitEmptyStrings().splitToList(str);
 
-
+        return strList.stream().map(strItem -> Integer.parseInt(strItem)).collect(Collectors.toList());
+    }
 }
