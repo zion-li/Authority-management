@@ -1,7 +1,8 @@
 package com.myself.util;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
+
 
 import java.util.*;
 
