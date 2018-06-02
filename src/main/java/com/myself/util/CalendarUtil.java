@@ -112,7 +112,7 @@ public class CalendarUtil {
      *
      * @return
      */
-    public static boolean checkHoliday() {
+    public static boolean checkIsHoliday() {
         //判断日期是否是周六周日
         return calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY
                 || calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY;
