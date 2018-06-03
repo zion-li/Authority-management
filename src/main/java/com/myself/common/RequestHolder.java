@@ -1,6 +1,7 @@
 package com.myself.common;
 
-import com.mmall.model.SysUser;
+
+import com.myself.model.SysUser;
 
 import javax.servlet.http.HttpServletRequest;
 
