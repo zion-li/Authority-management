@@ -1,14 +1,7 @@
-package com.myself.util;
+package com.myself.common;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.bfd.deepcreatorweb.service.AuthorInfoService;
-import com.bfd.redisadapter.RedisClient;
-import com.bfd.security.utils.UserContentUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -21,12 +14,12 @@ import java.util.Date;
  * @Date 2018/3/28.
  */
 public class RequestIntervalInterceptor implements HandlerInterceptor {
-
-    @Autowired
-    private RedisClient customJedisClient;
-
-    @Autowired
-    private AuthorInfoService authorInfoService;
+//
+//    @Autowired
+//    private RedisClient customJedisClient;
+//
+//    @Autowired
+//    private AuthorInfoService authorInfoService;
 
     private final Boolean openCrawler = true;
 
@@ -74,31 +67,32 @@ public class RequestIntervalInterceptor implements HandlerInterceptor {
      * @return
      */
     private boolean checkInterval(String lastRequestAddress) {
-        Boolean flag = false;
-        String userId = UserContentUtil.getUserContent().getUserInfo().getUserId();
-        String userKey = "crawler_" + userId;
-        Object object = customJedisClient.get(userKey);
-        JSONObject userOperate = new JSONObject();
-        if (object == null) {
-            userOperate.put("operateTime", new Date());
-            userOperate.put("operateURI", lastRequestAddress);
-        } else {
-            userOperate = JSON.parseObject((String) object);
-            if (userOperate.get("operateURI").equals(lastRequestAddress)) {
-                Date operateTime = userOperate.getDate("operateTime");
-                Integer operateCount = userOperate.getInteger("operateCount");
-                long interval = (new Date().getTime() - operateTime.getTime()) / 1000;
-                if (interval >= 1) {
-                    userOperate.put("operateTime", new Date());
-                    userOperate.put("operateURI", lastRequestAddress);
-                } else {
-                    userOperate.put("operateCount", operateCount + 1);
-                    userOperate.put("operateURI", lastRequestAddress);
-                    flag = true;
-                }
-            }
-            customJedisClient.set(userKey, String.valueOf(userOperate));
-        }
-        return flag;
+        return true;
+//        Boolean flag = false;
+//        String userId = UserContentUtil.getUserContent().getUserInfo().getUserId();
+//        String userKey = "crawler_" + userId;
+//        Object object = customJedisClient.get(userKey);
+//        JSONObject userOperate = new JSONObject();
+//        if (object == null) {
+//            userOperate.put("operateTime", new Date());
+//            userOperate.put("operateURI", lastRequestAddress);
+//        } else {
+//            userOperate = JSON.parseObject((String) object);
+//            if (userOperate.get("operateURI").equals(lastRequestAddress)) {
+//                Date operateTime = userOperate.getDate("operateTime");
+//                Integer operateCount = userOperate.getInteger("operateCount");
+//                long interval = (new Date().getTime() - operateTime.getTime()) / 1000;
+//                if (interval >= 1) {
+//                    userOperate.put("operateTime", new Date());
+//                    userOperate.put("operateURI", lastRequestAddress);
+//                } else {
+//                    userOperate.put("operateCount", operateCount + 1);
+//                    userOperate.put("operateURI", lastRequestAddress);
+//                    flag = true;
+//                }
+//            }
+//            customJedisClient.set(userKey, String.valueOf(userOperate));
+//        }
+//        return flag;
     }
 }
