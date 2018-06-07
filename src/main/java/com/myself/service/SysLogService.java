@@ -1,5 +1,6 @@
 package com.myself.service;
 
+import com.myself.model.SysAcl;
 import com.myself.model.SysDept;
 import com.myself.model.SysUser;
 
@@ -18,4 +19,6 @@ public interface SysLogService {
      * @param after
      */
     void saveDeptLog(SysDept before, SysDept after);
+
+    void saveAclLog(SysAcl obefore, SysAcl before);
 }
