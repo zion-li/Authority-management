@@ -1,7 +1,10 @@
 package com.myself.dao;
 
 
+import com.myself.beans.PageQuery;
 import com.myself.model.SysAcl;
+
+import java.util.List;
 
 public interface SysAclMapper {
 
@@ -16,4 +19,10 @@ public interface SysAclMapper {
     int updateByPrimaryKeySelective(SysAcl record);
 
     int updateByPrimaryKey(SysAcl record);
+
+    int countByAclModuleId(Integer aclModuleId);
+
+    List<SysAcl> getPageByAclModuleId(Integer aclModuleId, PageQuery page);
+
+    int countByNameAndAclModuleId(int aclModuleId, String name, Integer id);
 }
