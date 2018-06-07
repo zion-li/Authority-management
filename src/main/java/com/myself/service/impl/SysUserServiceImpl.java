@@ -8,6 +8,7 @@ import com.myself.dao.SysUserMapper;
 import com.myself.exception.ParamException;
 import com.myself.model.SysUser;
 import com.myself.param.UserParam;
+import com.myself.service.SysLogService;
 import com.myself.service.SysUserService;
 import com.myself.util.BeanValidator;
 import com.myself.util.IpUtil;
@@ -30,6 +31,9 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private SysUserMapper sysUserMapper;
+
+    @Resource
+    private SysLogService sysLogService;
 
     private static final String USERNAME = "userName";
     private static final String PASSWORD = "password";
@@ -103,8 +107,8 @@ public class SysUserServiceImpl implements SysUserService {
         //TODO 发送邮件
 
         sysUserMapper.insertSelective(sysUser);
-
-        //TODO 记录日志
+        //记录日志
+        sysLogService.saveUserLog(null,sysUser);
     }
 
     @Override
@@ -126,7 +130,8 @@ public class SysUserServiceImpl implements SysUserService {
         after.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
-        //TODO 记录日志
+        //记录日志
+        sysLogService.saveUserLog(before,after);
     }
 
     @Override
