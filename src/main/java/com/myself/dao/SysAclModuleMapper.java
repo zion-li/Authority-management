@@ -2,6 +2,8 @@ package com.myself.dao;
 
 import com.myself.model.SysAclModule;
 
+import java.util.List;
+
 public interface SysAclModuleMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,14 @@ public interface SysAclModuleMapper {
     int updateByPrimaryKeySelective(SysAclModule record);
 
     int updateByPrimaryKey(SysAclModule record);
+
+    int countByNameAndParentId(Integer parentId, String aclModuleName, Integer deptId);
+
+    List<SysAclModule> getChildAclModuleListByLevel(String level);
+
+    void batchUpdateLevel(List<SysAclModule> aclModuleList);
+
+    int countByParentId(Integer id);
+
+    List<SysAclModule> getAllAclModule();
 }
