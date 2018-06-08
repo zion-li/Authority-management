@@ -43,60 +43,65 @@ public class SysUserServiceImpl implements SysUserService {
         String errorMsg = "";
         String userName = request.getParameter(USERNAME);
         if (StringUtils.isBlank(userName)) {
-            throw new ParamException("用户名不可以为空");
+            errorMsg = "用户名不可以为空";
         }
         String password = request.getParameter(PASSWORD);
         if (StringUtils.isBlank(password)) {
-            throw new ParamException("密码不可以为空");
+            errorMsg = "密码不可以为空";
         }
+
+        String ret = request.getParameter("ret");
+
         SysUser sysUser = sysUserMapper.findByKeyword(userName);
         if (sysUser == null) {
-            throw new ParamException("查询不到指定的用户");
+            errorMsg = "查询不到指定的用户";
         } else if (MD5Util.verify(password, sysUser.getPassword())) {
-            throw new ParamException("用户名或密码错误");
+            errorMsg = "用户名或密码错误";
         } else if (sysUser.getStatus() != 1) {
-            throw new ParamException("用户已被冻结，请联系管理员");
+            errorMsg = "用户已被冻结，请联系管理员";
         } else {
             // login success
-            String ret = request.getParameter("ret");
+            request.getSession().setAttribute("user", sysUser);
+            //重定向到指定URL
             if (StringUtils.isNotBlank(ret)) {
                 response.sendRedirect(ret);
             } else {
                 response.sendRedirect("/admin/index.page");
             }
-
-            request.setAttribute("error", errorMsg);
-            request.setAttribute("username", userName);
-            if (StringUtils.isNotBlank(ret)) {
-                request.setAttribute("ret", ret);
-            }
-            String path = "signin.jsp";
-            request.getRequestDispatcher(path).forward(request, response);
         }
+        //以下是无法登陆的页面跳转
+        request.setAttribute("error", errorMsg);
+        request.setAttribute("username", userName);
+        if (StringUtils.isNotBlank(ret)) {
+            request.setAttribute("ret", ret);
+        }
+        String path = "signin.jsp";
+        request.getRequestDispatcher(path).forward(request, response);
+
     }
 
     @Override
     public void processLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //销毁跟用户关联session,例如有的用户强制关闭浏览器,而跟踪用户的信息的session还存在,可是用户已经离开了。
         request.getSession().invalidate();
-        String path="signin.jsp";
+        String path = "signin.jsp";
         response.sendRedirect(path);
     }
 
     @Override
     public void save(UserParam param) {
         BeanValidator.check(param);
-        if(checkTelephoneExist(param.getTelephone(), param.getId())) {
+        if (checkTelephoneExist(param.getTelephone(), param.getId())) {
             throw new ParamException("电话已被占用");
         }
-        if(checkEmailExist(param.getMail(), param.getId())) {
+        if (checkEmailExist(param.getMail(), param.getId())) {
             throw new ParamException("邮箱已被占用");
         }
         //生成一个没有顾虑的随机密码
-       String tempPassword= PasswordUtil.randomPassword();
+        String tempPassword = PasswordUtil.randomPassword();
         //加密
-        String encryptedPassword= MD5Util.generate(tempPassword);
-        SysUser sysUser=SysUser.builder().username(param.getUsername())
+        String encryptedPassword = MD5Util.generate(tempPassword);
+        SysUser sysUser = SysUser.builder().username(param.getUsername())
                 .telephone(param.getTelephone()).mail(param.getMail())
                 .password(encryptedPassword).deptId(param.getDeptId())
                 .status(param.getStatus()).remark(param.getRemark()).build();
@@ -108,16 +113,16 @@ public class SysUserServiceImpl implements SysUserService {
 
         sysUserMapper.insertSelective(sysUser);
         //记录日志
-        sysLogService.saveUserLog(null,sysUser);
+        sysLogService.saveUserLog(null, sysUser);
     }
 
     @Override
     public void update(UserParam param) {
         BeanValidator.check(param);
-        if(checkTelephoneExist(param.getTelephone(), param.getId())) {
+        if (checkTelephoneExist(param.getTelephone(), param.getId())) {
             throw new ParamException("电话已被占用");
         }
-        if(checkEmailExist(param.getMail(), param.getId())) {
+        if (checkEmailExist(param.getMail(), param.getId())) {
             throw new ParamException("邮箱已被占用");
         }
 
@@ -131,7 +136,7 @@ public class SysUserServiceImpl implements SysUserService {
         after.setOperateTime(new Date());
         sysUserMapper.updateByPrimaryKeySelective(after);
         //记录日志
-        sysLogService.saveUserLog(before,after);
+        sysLogService.saveUserLog(before, after);
     }
 
     @Override
@@ -147,7 +152,8 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 查询邮箱是否重复，不包含当前用户的邮箱
-     * @param mail 邮箱地址
+     *
+     * @param mail   邮箱地址
      * @param userId 用户Id
      * @return
      */
@@ -157,6 +163,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     /**
      * 查询电话号是否重复胡，不包含当前用户的手机号
+     *
      * @param telephone
      * @param userId
      * @return
