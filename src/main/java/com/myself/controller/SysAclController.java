@@ -1,6 +1,5 @@
 package com.myself.controller;
 
-import com.google.common.collect.Maps;
 import com.myself.beans.PageQuery;
 import com.myself.common.JsonData;
 import com.myself.param.AclParam;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/sys/acl")
@@ -46,6 +44,6 @@ public class SysAclController {
     @RequestMapping("acls.json")
     @ResponseBody
     public JsonData acls(@RequestParam("aclId") int aclId) {
-        return  JsonData.success(sysAclService.getaclsByAclId(aclId));
+        return  JsonData.success(sysAclService.getAclByAclId(aclId));
     }
 }
