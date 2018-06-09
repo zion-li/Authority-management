@@ -14,10 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Slf4j
 @Controller
 @RequestMapping("/sys/dept")
-@Slf4j
 public class SysDeptController {
     @Resource
     private SysDeptService sysDeptService;

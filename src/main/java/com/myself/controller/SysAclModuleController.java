@@ -13,11 +13,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
+/**
+ * 权限模块
+ */
+@Slf4j
 @Controller
 @RequestMapping("/sys/aclModule")
-@Slf4j
 public class SysAclModuleController {
-
 
     @Resource
     private SysAclModuleService sysAclModuleService;
@@ -26,6 +28,7 @@ public class SysAclModuleController {
     public ModelAndView page() {
         return new ModelAndView("acl");
     }
+
     @RequestMapping("/save.json")
     @ResponseBody
     public JsonData saveAclModule(AclModuleParam param) {
@@ -52,6 +55,5 @@ public class SysAclModuleController {
         sysAclModuleService.delete(id);
         return JsonData.success();
     }
-
 }
 

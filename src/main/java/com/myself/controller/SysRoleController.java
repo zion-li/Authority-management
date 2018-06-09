@@ -3,6 +3,7 @@ package com.myself.controller;
 import com.myself.common.JsonData;
 import com.myself.param.RoleParam;
 import com.myself.service.SysRoleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Controller
 @RequestMapping("/sys/role")
 public class SysRoleController {

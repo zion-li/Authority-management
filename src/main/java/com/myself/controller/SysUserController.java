@@ -6,6 +6,7 @@ import com.myself.common.JsonData;
 import com.myself.model.SysUser;
 import com.myself.param.UserParam;
 import com.myself.service.SysUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
+@Slf4j
 @Controller
 @RequestMapping("/sys/user")
 public class SysUserController {
