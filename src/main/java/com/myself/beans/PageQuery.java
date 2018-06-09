@@ -3,6 +3,7 @@ package com.myself.beans;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
 public class PageQuery {
@@ -15,6 +16,7 @@ public class PageQuery {
     @Getter
     @Setter
     @Min(value = 1, message = "每页展示数量不合法")
+    @Max(value = 100,message = "每页展示数量不合法")
     private int pageSize = 10;
 
     @Setter
