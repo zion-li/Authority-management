@@ -18,6 +18,7 @@ public class AclDto extends SysAcl {
     // 是否有权限操作
     private boolean hasAcl = false;
 
+    //适配器
     public static AclDto adapt(SysAcl acl) {
         AclDto dto = new AclDto();
         BeanUtils.copyProperties(acl, dto);
