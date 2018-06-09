@@ -1,5 +1,6 @@
 package com.myself.service.impl;
 
+import ch.qos.logback.core.pattern.ConverterUtil;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Maps;
 import com.myself.beans.PageQuery;
@@ -14,6 +15,7 @@ import com.myself.service.SysAclService;
 import com.myself.service.SysLogService;
 import com.myself.service.SysRoleService;
 import com.myself.util.BeanValidator;
+import com.myself.util.DateUtil;
 import com.myself.util.IpUtil;
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -79,7 +81,7 @@ public class SysAclServiceImpl implements SysAclService{
     }
 
     @Override
-    public Map<String,Object> getaclsByAclId(int aclId) {
+    public Map<String,Object> getAclByAclId(int aclId) {
         Map<String, Object> map = Maps.newHashMap();
         List<SysRole> roleList = sysRoleService.getRoleListByAclId(aclId);
         map.put("roles", roleList);
@@ -91,7 +93,6 @@ public class SysAclServiceImpl implements SysAclService{
         return sysAclMapper.countByNameAndAclModuleId(aclModuleId, name, id) > 0;
     }
     public String generateCode() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-        return dateFormat.format(new Date()) + "_" + (int)(Math.random() * 100);
+        return DateUtil.format(new Date(),"yyyyMMddHHmmss");
     }
 }
