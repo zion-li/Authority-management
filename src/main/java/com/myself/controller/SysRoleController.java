@@ -69,9 +69,4 @@ public class SysRoleController {
 
         return JsonData.success(sysRoleService.getUserListByRoleId(roleId));
     }
-
-
-
-
-
 }
