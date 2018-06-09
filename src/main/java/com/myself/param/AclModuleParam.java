@@ -21,6 +21,7 @@ public class AclModuleParam {
     @Length(min = 2, max = 20, message = "权限模块名称长度需要在2~20个字之间")
     private String name;
 
+    //你要不传我就认为是一级
     private Integer parentId = 0;
 
     @NotNull(message = "权限模块展示顺序不可以为空")
