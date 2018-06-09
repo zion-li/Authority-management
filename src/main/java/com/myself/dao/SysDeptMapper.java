@@ -1,6 +1,7 @@
 package com.myself.dao;
 
 import com.myself.model.SysDept;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,11 +20,11 @@ public interface SysDeptMapper {
 
     List<SysDept> getAllDept();
 
-    int countByNameAndParentId(Integer parentId, String deptName, Integer deptId);
+    int countByNameAndParentId(@Param("parentId")  int parentId, @Param("name") String deptName, @Param("id") int deptId);
 
-    int countByParentId(Integer id);
+    int countByParentId(@Param("deptId") int deptId);
 
-    List<SysDept> getChildDeptListByLevel(String level);
+    List<SysDept> getChildDeptListByLevel(@Param("level") String level);
 
-    void batchUpdateLevel(List<SysDept> deptList);
+    void batchUpdateLevel(@Param("sysDeptList")  List<SysDept> deptList);
 }

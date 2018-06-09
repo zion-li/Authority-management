@@ -3,6 +3,7 @@ package com.myself.dao;
 
 import com.myself.beans.PageQuery;
 import com.myself.model.SysAcl;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,9 +21,13 @@ public interface SysAclMapper {
 
     int updateByPrimaryKey(SysAcl record);
 
-    int countByAclModuleId(Integer aclModuleId);
+    int countByAclModuleId( @Param("aclModuleId") Integer aclModuleId);
 
-    List<SysAcl> getPageByAclModuleId(Integer aclModuleId, PageQuery page);
+    List<SysAcl> getPageByAclModuleId(@Param("aclModuleId") int aclModuleId,  @Param("page")PageQuery page);
 
-    int countByNameAndAclModuleId(int aclModuleId, String name, Integer id);
+    int countByNameAndAclModuleId(@Param("aclModuleId") int aclModuleId,@Param("name") String name,@Param("id")  Integer id);
+
+    List<SysAcl> getAll();
+
+    List<SysAcl> getByUrl(@Param("url") String url);
 }
