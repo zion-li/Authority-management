@@ -21,6 +21,9 @@ public class RequestIntervalInterceptor implements HandlerInterceptor {
 //    @Autowired
 //    private AuthorInfoService authorInfoService;
 
+    /**
+     * 反扒开关
+     */
     private final Boolean openCrawler = true;
 
 
@@ -36,8 +39,7 @@ public class RequestIntervalInterceptor implements HandlerInterceptor {
             if (checkInterval(lastRequestAddress)) {
                 httpServletResponse.setContentType("application/json;charset=utf-8");
                 PrintWriter out = httpServletResponse.getWriter();
-                String str = "{\"code\":200,\"data\":{\"flag\":false,\"needValidate\":true,\"message\":\"需要验证码验证!\"}}";
-                out.print(str);
+                out.print(JsonData.fail("需要验证码验证!").toMap());
                 return false;
             }
         }

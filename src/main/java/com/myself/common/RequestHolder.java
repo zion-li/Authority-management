@@ -2,9 +2,12 @@ package com.myself.common;
 
 
 import com.myself.model.SysUser;
-
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * ThreadLocal 添加用户信息
+ * @author zion
+ */
 public class RequestHolder {
 
     private static final ThreadLocal<SysUser> userHolder = new ThreadLocal<SysUser>();

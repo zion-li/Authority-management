@@ -7,16 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 返回格式
+ * 请求返回格式
+ * @author zion
  */
 @Getter
 @Setter
 public class JsonData {
 
+    /**
+     * 返回标志 true/false
+     */
     private boolean ret;
 
+    /**
+     * 返回信息提示
+     */
     private String msg;
 
+    /**
+     * 返回数据
+     */
     private Object data;
 
     public JsonData(boolean ret) {

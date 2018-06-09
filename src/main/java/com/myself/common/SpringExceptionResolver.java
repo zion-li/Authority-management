@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * HandlerExceptionResolver接口中定义了一个resolveException方法，用于处理Controller中的异常。
- * Exception ex参数即Controller抛出的异常。返回值类型是ModelAndView，可以通过这个返回值来设置异常时显示的页面。
+ * HandlerExceptionResolver接口中定义了一个resolveException方法，处理全局异常。
+ * Exception ex参数即抛出的异常。返回值类型是ModelAndView，可以通过这个返回值来设置异常时显示的页面。
  */
 @Slf4j
 public class SpringExceptionResolver implements HandlerExceptionResolver {

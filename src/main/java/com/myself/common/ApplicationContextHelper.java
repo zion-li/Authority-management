@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * Spring中提供一些Aware结尾相关接口，像是BeanFactoryAware、 BeanNameAware、ApplicationContextAware、ResourceLoaderAware、
  * ServletContextAware等等。实现这些 Aware接口的Bean在被实例化之后，可以取得一些相对应的资源
+ * @author zion
  */
 @Component("applicationContextHelper")
 public class ApplicationContextHelper implements ApplicationContextAware {
