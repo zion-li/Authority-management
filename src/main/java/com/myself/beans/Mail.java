@@ -17,9 +17,18 @@ import java.util.Set;
 @AllArgsConstructor
 public class Mail {
 
+    /**
+     * 主题
+     */
     private String subject;
 
+    /**
+     * 信息
+     */
     private String message;
 
+    /**
+     * 接收者
+     */
     private Set<String> receivers;
 }

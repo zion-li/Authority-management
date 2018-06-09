@@ -6,6 +6,10 @@ import lombok.Setter;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
+/**
+ * 分页查询
+ * @author zion
+ */
 public class PageQuery {
 
     @Getter

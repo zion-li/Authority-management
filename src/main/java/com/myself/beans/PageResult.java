@@ -8,6 +8,10 @@ import lombok.ToString;
 
 import java.util.List;
 
+/**
+ * 分页查询结果
+ * @param <T>
+ */
 @Getter
 @Setter
 @ToString

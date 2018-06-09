@@ -2,6 +2,7 @@ package com.myself.beans;
 
 /**
  * 常量
+ * @author zion
  */
 public interface LogType {
 
