@@ -68,4 +68,12 @@ public interface SysLogService {
      * @param after
      */
     void saveRoleUserLog(int roleId, List<Integer> before, List<Integer> after);
+
+    /**
+     * 角色权限日志
+     * @param roleId
+     * @param before
+     * @param after
+     */
+    void saveRoleAclLog(int roleId,  List<Integer> before, List<Integer> after);
 }
