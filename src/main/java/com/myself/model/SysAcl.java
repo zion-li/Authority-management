@@ -4,9 +4,11 @@ import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class SysAcl extends BaseAttribute {
     /**
      * 权限id
