@@ -1,6 +1,7 @@
 package com.myself.service.impl;
 
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Maps;
 import com.myself.beans.PageQuery;
 import com.myself.beans.PageResult;
 import com.myself.common.RequestHolder;
@@ -9,6 +10,8 @@ import com.myself.exception.ParamException;
 import com.myself.model.SysUser;
 import com.myself.param.UserParam;
 import com.myself.service.SysLogService;
+import com.myself.service.SysRoleService;
+import com.myself.service.SysTreeService;
 import com.myself.service.SysUserService;
 import com.myself.util.BeanValidator;
 import com.myself.util.IpUtil;
@@ -23,17 +26,22 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用户功能实现
+ * @author zion
  */
 public class SysUserServiceImpl implements SysUserService {
 
     @Resource
     private SysUserMapper sysUserMapper;
-
     @Resource
     private SysLogService sysLogService;
+    @Resource
+    private SysTreeService sysTreeService;
+    @Resource
+    private SysRoleService sysRoleService;
 
     private static final String USERNAME = "userName";
     private static final String PASSWORD = "password";
@@ -108,7 +116,6 @@ public class SysUserServiceImpl implements SysUserService {
         sysUser.setOperateIp(RequestHolder.getCurrentUser().getOperateIp());
         sysUser.setOperateTime(new Date());
         sysUser.setOperator(RequestHolder.getCurrentUser().getUsername());
-
         //TODO 发送邮件
 
         sysUserMapper.insertSelective(sysUser);
@@ -148,6 +155,19 @@ public class SysUserServiceImpl implements SysUserService {
             return PageResult.<SysUser>builder().total(count).data(list).build();
         }
         return PageResult.<SysUser>builder().build();
+    }
+
+    @Override
+    public Map<String, Object> getAclsByUserId(int userId) {
+        Map<String,Object> map= Maps.newHashMap();
+        map.put("acls",sysTreeService.getUserAclTree(userId));
+        map.put("roles",sysRoleService.getRoleListByUserId(userId));
+        return map;
+    }
+
+    @Override
+    public List<SysUser> getAll() {
+        return sysUserMapper.getAll();
     }
 
     /**

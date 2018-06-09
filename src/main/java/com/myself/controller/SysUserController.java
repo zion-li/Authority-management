@@ -18,7 +18,6 @@ import javax.annotation.Resource;
 @RequestMapping("/sys/user")
 public class SysUserController {
 
-
     @Resource
     private SysUserService sysUserService;
 
@@ -67,6 +66,17 @@ public class SysUserController {
     public JsonData page(@RequestParam("deptId") int deptId, PageQuery pageQuery) {
         PageResult<SysUser> result = sysUserService.getPageByDeptId(deptId, pageQuery);
         return JsonData.success(result);
+    }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/acls.json")
+    @ResponseBody
+    public JsonData acls(@RequestParam("userId") int userId){
+        return JsonData.success(sysUserService.getAclsByUserId(userId));
     }
 
 }
