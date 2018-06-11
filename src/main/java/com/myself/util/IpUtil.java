@@ -1,7 +1,6 @@
 package com.myself.util;
 
 import lombok.extern.slf4j.Slf4j;
-import com.sun.deploy.net.HttpUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +22,7 @@ import java.util.regex.Pattern;
  */
 @Slf4j
 public class IpUtil {
-    private static final Logger logger = LoggerFactory.getLogger(HttpUtils.class);
+
     /**
      * Linux 网卡配置信息
      * eth1:
@@ -67,7 +66,7 @@ public class IpUtil {
                 localIP = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
-                logger.error("Getting the native Ip address failed,Failed reason:"+e.getMessage());
+                log.error("Getting the native Ip address failed,Failed reason:"+e.getMessage());
             }
         }
         return localIP;
@@ -97,7 +96,7 @@ public class IpUtil {
             }
         } catch (UnknownHostException | SocketException e) {
             e.printStackTrace();
-            logger.error("Getting the native MAC address failed,Failed reason:"+e.getMessage());
+            log.error("Getting the native MAC address failed,Failed reason:"+e.getMessage());
         }
         return stringBuffer.toString().toUpperCase();
     }

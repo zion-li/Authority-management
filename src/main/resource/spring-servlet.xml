@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--他的作用是式地向 Spring 容器注册 这 4 个BeanPostProcessor-->
+    <!--AutowiredAnnotationBeanPostProcessor：@Autowired注解，那么就必须事先在 Spring 容器中声明 AutowiredAnnotationBeanPostProcessor Bean
+    CommonAnnotationBeanPostProcessor：@ Resource 、@ PostConstruct、@ PreDestroy等注解就必须声明CommonAnnotationBeanPostProcessor
+    PersistenceAnnotationBeanPostProcessor：@PersistenceContext注解，就必须声明PersistenceAnnotationBeanPostProcessor
+    RequiredAnnotationBeanPostProcessor：@Required的注解，就必须声明RequiredAnnotationBeanPostProcessor的Bean-->
+    <context:annotation-config />
+
+    <!-- 启动包扫描功能 -->
+    <context:component-scan base-package="com.myself.controller" />
+    <context:component-scan base-package="com.myself.service" />
+
+    <!-- 启动注解驱动的spring mvc 功能 -->
+    <!--会自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter两个Bean-->
+    <!--是spring MVC为@Controllers分发请求所必须的，即解决了@Controller注解使用的前提配置。-->
+    <mvc:annotation-driven/>
+
+
+    <!--拦截器-->
+    <mvc:interceptors>
+        <bean class="com.myself.common.HttpInterceptor" />
+    </mvc:interceptors>
+
+    <!--静态资源文件-->
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/bootstrap3.3.5/" mapping="/bootstrap3.3.5/**"/>
+    <mvc:resources location="/assets/" mapping="/assets/**"/>
+    <mvc:resources location="/ztree/" mapping="/ztree/**"/>
+
+
+    <bean class="com.myself.common.ApplicationContextHelper" lazy-init="false" />
+
+    <!--<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />-->
+
+    <bean class="com.myself.common.SpringExceptionResolver" />
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+
+</beans>
