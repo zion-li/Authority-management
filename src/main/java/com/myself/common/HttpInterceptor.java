@@ -48,6 +48,11 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         removeThreadLocalInfo();
     }
 
+    /**
+     * 移除变量信息
+     * 如果不移除，那么变量不会释放掉，会造成内存泄漏
+     * 在接口处理完以后进行处理（interceptor）
+     */
     public void removeThreadLocalInfo() {
         RequestHolder.remove();
     }
