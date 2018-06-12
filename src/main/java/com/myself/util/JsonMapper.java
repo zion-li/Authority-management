@@ -31,7 +31,7 @@ public class JsonMapper {
         try {
             return src instanceof String ? (String) src : objectMapper.writeValueAsString(src);
         } catch (Exception e) {
-            log.warn("parse object to String exception, error:{}", e);
+            log.warn("parse object to String exception, error:{}", e.getMessage());
             return null;
         }
     }
