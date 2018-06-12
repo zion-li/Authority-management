@@ -29,7 +29,7 @@
     delete from sys_acl
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.model.SysAcl" >
+  <insert id="insert" parameterType="com.myself.model.SysAcl" >
     insert into sys_acl (id, code, name,
     acl_module_id, url, type,
     status, seq, remark,
@@ -41,7 +41,7 @@
     #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
     )
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.model.SysAcl" keyProperty="id" useGeneratedKeys="true">
+  <insert id="insertSelective" parameterType="com.myself.model.SysAcl" keyProperty="id" useGeneratedKeys="true">
     insert into sys_acl
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -120,7 +120,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.SysAcl" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.myself.model.SysAcl" >
     update sys_acl
     <set >
       <if test="code != null" >
@@ -159,7 +159,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmall.model.SysAcl" >
+  <update id="updateByPrimaryKey" parameterType="com.myself.model.SysAcl" >
     update sys_acl
     set code = #{code,jdbcType=VARCHAR},
     name = #{name,jdbcType=VARCHAR},

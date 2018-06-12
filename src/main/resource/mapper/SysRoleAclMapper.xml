@@ -22,7 +22,7 @@
     delete from sys_role_acl
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mmall.model.SysRoleAcl" >
+  <insert id="insert" parameterType="com.myself.model.SysRoleAcl" >
     insert into sys_role_acl (id, role_id, acl_id, 
       operator, operate_time, operate_ip
       )
@@ -30,7 +30,7 @@
       #{operator,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}, #{operateIp,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.mmall.model.SysRoleAcl" >
+  <insert id="insertSelective" parameterType="com.myself.model.SysRoleAcl" >
     insert into sys_role_acl
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmall.model.SysRoleAcl" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.myself.model.SysRoleAcl" >
     update sys_role_acl
     <set >
       <if test="roleId != null" >
@@ -94,7 +94,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmall.model.SysRoleAcl" >
+  <update id="updateByPrimaryKey" parameterType="com.myself.model.SysRoleAcl" >
     update sys_role_acl
     set role_id = #{roleId,jdbcType=INTEGER},
       acl_id = #{aclId,jdbcType=INTEGER},
