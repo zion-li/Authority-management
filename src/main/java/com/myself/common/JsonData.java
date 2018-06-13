@@ -15,7 +15,7 @@ import java.util.Map;
 public class JsonData {
 
     /**
-     * 返回标志 true/false
+     * 返回数据
      */
     private boolean ret;
 
@@ -57,7 +57,7 @@ public class JsonData {
     }
 
     public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<String, Object>();
+        HashMap<String, Object> result = new HashMap<>();
         result.put("ret", ret);
         result.put("msg", msg);
         result.put("data", data);
