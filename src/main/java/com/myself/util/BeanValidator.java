@@ -24,6 +24,7 @@ import java.util.Set;
 public class BeanValidator {
 
     /**
+     * 创建一个自己的工厂
      * Builds and returns a instance based on the
      * <p>
      * default Bean Validation provider and following the XML configuration
@@ -35,14 +36,17 @@ public class BeanValidator {
      * factory defaults for message interpolator, traversable resolver
      * and constraint validator factory.
      *
-     * @param t      object to validate
+     * @param t      K ：地字段   V：错误信息  object to validate
      * @param groups the group or list of groups targeted for validation
      * @param <T>
      * @return
      */
     public static <T> Map<String, String> validate(T t, Class... groups) {
+        //从工厂里获取
         Validator validator = validatorFactory.getValidator();
+        //获取校验结果
         Set validateResult = validator.validate(t, groups);
+        //不为空，既校验出错
         if (validateResult.isEmpty()) {
             return Collections.emptyMap();
         } else {
@@ -87,6 +91,7 @@ public class BeanValidator {
             checkPositionIndex(int index, int size)：错误描述信息为“index”
             checkPositionIndexes(int start, int end, int size)：校验大于等于start，小于end的list的长度是否为size。
          */
+        //google提供的基础校验工具类
         Preconditions.checkNotNull(collection);
         Iterator iterator = collection.iterator();
         Map errors;
@@ -116,6 +121,11 @@ public class BeanValidator {
         }
     }
 
+    /**
+     * 通过抛出异常的形式进行参数校验，包上面的方法封装起来更加方便
+     * @param param 参数校验对象
+     * @throws ParamException 参数校验异常
+     */
     public static void check(Object param) throws ParamException {
         Map<String, String> map = BeanValidator.validateObject(param);
         if (MapUtils.isNotEmpty(map)) {
