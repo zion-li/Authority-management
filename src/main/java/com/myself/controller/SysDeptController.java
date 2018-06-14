@@ -14,6 +14,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.List;
+
+/**
+ * 部门管理
+ */
 @Slf4j
 @Controller
 @RequestMapping("/sys/dept")
@@ -29,7 +33,13 @@ public class SysDeptController {
         return new ModelAndView("dept");
     }
 
+    /**
+     * 新增部门功能
+     * @param param 部门参数
+     * @return
+     */
     @RequestMapping("save.json")
+    @ResponseBody
     public JsonData saveDept(DeptParam param){
         sysDeptService.save(param);
         return JsonData.success();

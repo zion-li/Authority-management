@@ -20,6 +20,13 @@ public interface SysDeptMapper {
 
     List<SysDept> getAllDept();
 
+    /**
+     * 查询同一层级中是否存在名名称相同的部门
+     * @param parentId
+     * @param deptName
+     * @param deptId
+     * @return
+     */
     int countByNameAndParentId(@Param("parentId")  int parentId, @Param("name") String deptName, @Param("id") int deptId);
 
     int countByParentId(@Param("deptId") int deptId);

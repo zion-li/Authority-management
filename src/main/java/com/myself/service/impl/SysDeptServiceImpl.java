@@ -34,14 +34,19 @@ public class SysDeptServiceImpl implements SysDeptService {
 
     @Override
     public void save(DeptParam param) {
+        //基本的验证
         BeanValidator.check(param);
+        //检测当前部门是否已经重复，同一级部门下不能出现名称重复的部门
+        //传id用来update是检查
         if(checkExist(param.getParentId(), param.getName(), param.getId())) {
             throw new ParamException("同一层级下存在相同名称的部门");
         }
+        //建造者的方式使用
         SysDept dept = SysDept.builder().name(param.getName()).parentId(param.getParentId())
                 .seq(param.getSeq()).remark(param.getRemark()).build();
 
         dept.setLevel(LevelUtil.calculateLevel(getLevel(param.getParentId()), param.getParentId()));
+
         dept.setOperator(RequestHolder.getCurrentUser().getUsername());
         dept.setOperateIp(IpUtil.getRemoteIp(RequestHolder.getCurrentRequest()));
         dept.setOperateTime(new Date());
@@ -109,6 +114,11 @@ public class SysDeptServiceImpl implements SysDeptService {
         return sysDeptMapper.countByNameAndParentId(parentId, deptName, deptId) > 0;
     }
 
+    /**
+     * 查询父级的parentid
+     * @param deptId
+     * @return
+     */
     private String getLevel(Integer deptId) {
         SysDept dept = sysDeptMapper.selectByPrimaryKey(deptId);
         if (dept == null) {

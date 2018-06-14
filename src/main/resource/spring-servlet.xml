@@ -43,6 +43,7 @@
     <!--全局异常注入-->
     <bean class="com.myself.common.SpringExceptionResolver" />
 
+    <!--注入获取bean的类-->
     <bean class="com.myself.common.ApplicationContextHelper" lazy-init="false" />
 
     <!--定义一个spring mvc的接口的时候，会使用@requestmapping ，把这个注解找到对应的接口 -->

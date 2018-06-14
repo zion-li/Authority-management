@@ -8,6 +8,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.constraints.NotNull;
 
+/**
+ * 新增部门的参数
+ */
 @Getter
 @Setter
 @ToString
