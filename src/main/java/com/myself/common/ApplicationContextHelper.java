@@ -15,10 +15,21 @@ public class ApplicationContextHelper implements ApplicationContextAware {
 
     private static ApplicationContext applicationContext;
 
+    /**
+     * 系统启动时，会注入全局的ApplicationContext，上下文信息就获取到了
+     * @param context
+     * @throws BeansException
+     */
     public void setApplicationContext(ApplicationContext context) throws BeansException {
         applicationContext = context;
     }
 
+    /**
+     * 过去bean
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     public static <T> T popBean(Class<T> clazz) {
         if (applicationContext == null) {
             return null;
@@ -26,6 +37,13 @@ public class ApplicationContextHelper implements ApplicationContextAware {
         return applicationContext.getBean(clazz);
     }
 
+    /**
+     * 根据名称，获取bean
+     * @param name 名称
+     * @param clazz bean的类型
+     * @param <T> 返回一个bean
+     * @return
+     */
     public static <T> T popBean(String name, Class<T> clazz) {
         if (applicationContext == null) {
             return null;
