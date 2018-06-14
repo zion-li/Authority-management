@@ -42,9 +42,10 @@ public class SysTreeServiceImpl implements SysTreeService {
     public List<DeptLevelDto> deptTree() {
         //获取所有部门
         List<SysDept> deptList = sysDeptMapper.getAllDept();
-        //郭新适配器模式
+        //适配器模式
         List<DeptLevelDto> dtoList = Lists.newArrayList();
         for (SysDept dept : deptList) {
+            //适配出一个dto出来
             DeptLevelDto dto = DeptLevelDto.adapt(dept);
             dtoList.add(dto);
         }
@@ -70,7 +71,9 @@ public class SysTreeServiceImpl implements SysTreeService {
 
         for (DeptLevelDto dto : deptLevelList) {
             //把所有的都放进去,key为具体的层级关系，可以直接通过key找到某一个层级的所有子节点
+            //下一次可以通过level获取所有的下一级部门
             levelDeptMap.put(dto.getLevel(), dto);
+
             if (LevelUtil.ROOT.equals(dto.getLevel())) {
                 rootList.add(dto);
             }
@@ -81,6 +84,7 @@ public class SysTreeServiceImpl implements SysTreeService {
 
         // 递归生成树，首先获取root层级的所有子节点
         transformDeptTree(rootList, LevelUtil.ROOT, levelDeptMap);
+
         return rootList;
     }
 
@@ -89,19 +93,19 @@ public class SysTreeServiceImpl implements SysTreeService {
      * level:0.1
      * level:0.2
      *
-     * @param deptLevelList
-     * @param level
-     * @param levelDeptMap
+     * @param deptLevelList 当前的结构
+     * @param level 当前的level
+     * @param levelDeptMap map所有的
      */
     public void transformDeptTree(List<DeptLevelDto> deptLevelList, String level, Multimap<String, DeptLevelDto> levelDeptMap) {
 
-        //遍历当前节点，获取当前节点的下一层节点
+        //遍历当前层级数据，获取当前节点的下一层节点
         for (int i = 0; i < deptLevelList.size(); i++) {
             // 遍历该层的每个元素
             DeptLevelDto deptLevelDto = deptLevelList.get(i);
-            // 处理当前层级的数据
+            // 计算下一层的level
             String nextLevel = LevelUtil.calculateLevel(level, deptLevelDto.getId());
-            // 处理下一层
+            // 获取下一层
             List<DeptLevelDto> tempDeptList = (List<DeptLevelDto>) levelDeptMap.get(nextLevel);
 
             if (CollectionUtils.isNotEmpty(tempDeptList)) {
@@ -226,9 +230,13 @@ public class SysTreeServiceImpl implements SysTreeService {
         return aclListToTree(aclDtoList);
     }
 
-    public Comparator<DeptLevelDto> deptSeqComparator = (o1, o2) -> o1.getSeq() - o2.getSeq();
 
-    public Comparator<AclModuleLevelDto> aclModuleSeqComparator = (o1, o2) -> o1.getSeq() - o2.getSeq();
+    /**
+     * 从小到大排序
+     */
+    public Comparator<DeptLevelDto> deptSeqComparator = Comparator.comparingInt(SysDept::getSeq);
 
-    public Comparator<AclDto> aclSeqComparator = (o1, o2) -> o1.getSeq() - o2.getSeq();
+    public Comparator<AclModuleLevelDto> aclModuleSeqComparator = Comparator.comparingInt(SysAclModule::getSeq);
+
+    public Comparator<AclDto> aclSeqComparator = Comparator.comparingInt(SysAcl::getSeq);
 }

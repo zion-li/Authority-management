@@ -13,7 +13,7 @@ import java.util.List;
 public interface SysTreeService {
 
     /**
-     * 部门
+     * 部门树
      * @return
      */
     List<DeptLevelDto> deptTree();

@@ -18,6 +18,10 @@ public interface SysDeptMapper {
 
     int updateByPrimaryKey(SysDept record);
 
+    /**
+     * 部门列表
+     * @return
+     */
     List<SysDept> getAllDept();
 
     /**
