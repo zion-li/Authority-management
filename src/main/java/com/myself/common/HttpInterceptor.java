@@ -29,15 +29,27 @@ public class HttpInterceptor extends HandlerInterceptorAdapter {
         return true;
     }
 
+    /**
+     * 正常结束
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-//        String url = request.getRequestURI().toString();
-//        long start = (Long) request.getAttribute(START_TIME);
-//        long end = System.currentTimeMillis();
-//        log.info("request finished. url:{}, cost:{}", url, end - start);
         removeThreadLocalInfo();
     }
 
+    /**
+     * 任何情况都调用
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         String url = request.getRequestURI().toString();
