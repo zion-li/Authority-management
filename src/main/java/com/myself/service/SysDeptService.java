@@ -9,7 +9,15 @@ public interface SysDeptService {
      */
     void save(DeptParam param);
 
+    /**
+     * 删除部门
+     * @param id
+     */
     void delete(int id);
 
+    /**
+     * 更新部门
+     * @param param
+     */
     void update(DeptParam param);
 }

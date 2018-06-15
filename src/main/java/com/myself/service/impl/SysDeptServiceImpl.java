@@ -90,11 +90,18 @@ public class SysDeptServiceImpl implements SysDeptService {
         sysLogService.saveDeptLog(before, after);
     }
 
+    /**
+     * 更新所有子部门
+     * @param before
+     * @param after
+     */
     @Transactional
     void updateWithChild(SysDept before, SysDept after) {
         String newLevelPrefix = after.getLevel();
         String oldLevelPrefix = before.getLevel();
+        //只有不一致的时候才做子部门的更新
         if (!after.getLevel().equals(before.getLevel())) {
+            //获取了当前部门level开头的所有部门，包括子部门的子部门
             List<SysDept> deptList = sysDeptMapper.getChildDeptListByLevel(before.getLevel());
             if (CollectionUtils.isNotEmpty(deptList)) {
                 for (SysDept dept : deptList) {
@@ -107,9 +114,17 @@ public class SysDeptServiceImpl implements SysDeptService {
                 sysDeptMapper.batchUpdateLevel(deptList);
             }
         }
+        //最后更新当前部门
         sysDeptMapper.updateByPrimaryKey(after);
     }
 
+    /**
+     * 检查数据是否有重复
+     * @param parentId
+     * @param deptName
+     * @param deptId
+     * @return
+     */
     private boolean checkExist(Integer parentId, String deptName, Integer deptId) {
         return sysDeptMapper.countByNameAndParentId(parentId, deptName, deptId) > 0;
     }

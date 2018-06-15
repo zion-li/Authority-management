@@ -45,7 +45,10 @@ public class SysDeptController {
         return JsonData.success();
     }
 
-
+    /**
+     * 构建部门树
+     * @return
+     */
     @RequestMapping("/tree.json")
     @ResponseBody
     public JsonData tree() {
@@ -53,6 +56,11 @@ public class SysDeptController {
         return JsonData.success(dtoList);
     }
 
+    /**
+     * 更新部门
+     * @param param
+     * @return
+     */
     @RequestMapping("/update.json")
     @ResponseBody
     public JsonData updateDept(DeptParam param) {
@@ -60,6 +68,11 @@ public class SysDeptController {
         return JsonData.success();
     }
 
+    /**
+     * 删除部门
+     * @param id
+     * @return
+     */
     @RequestMapping("/delete.json")
     @ResponseBody
     public JsonData delete(@RequestParam("id") int id) {

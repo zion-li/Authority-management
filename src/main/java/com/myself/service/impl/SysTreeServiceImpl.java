@@ -38,6 +38,10 @@ public class SysTreeServiceImpl implements SysTreeService {
     @Resource
     private SysAclMapper sysAclMapper;
 
+    /**
+     * 部门层级树
+     * @return
+     */
     @Override
     public List<DeptLevelDto> deptTree() {
         //获取所有部门

@@ -25,7 +25,7 @@ public interface SysDeptMapper {
     List<SysDept> getAllDept();
 
     /**
-     * 查询同一层级中是否存在名名称相同的部门
+     * 检查数据是否有重复
      * @param parentId
      * @param deptName
      * @param deptId
@@ -35,7 +35,16 @@ public interface SysDeptMapper {
 
     int countByParentId(@Param("deptId") int deptId);
 
+    /**
+     * 获取所有以x开头的所有部门 xx .%
+     * @param level
+     * @return
+     */
     List<SysDept> getChildDeptListByLevel(@Param("level") String level);
 
+    /**
+     * 批量更新所有的子部门
+     * @param deptList
+     */
     void batchUpdateLevel(@Param("sysDeptList")  List<SysDept> deptList);
 }
