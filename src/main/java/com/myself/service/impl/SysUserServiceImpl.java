@@ -58,6 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
             errorMsg = "密码不可以为空";
         }
 
+        //return 返回信息，登录成功跳转的token
         String ret = request.getParameter("ret");
 
         SysUser sysUser = sysUserMapper.findByKeyword(userName);
@@ -78,20 +79,24 @@ public class SysUserServiceImpl implements SysUserService {
             }
         }
         //以下是无法登陆的页面跳转
+        //能执行到这一定是没有成功，跳转到登录页面，
+        //还要把错误信息写到登录页面上去，错误信息和用户名
         request.setAttribute("error", errorMsg);
         request.setAttribute("username", userName);
+        //ret不为空也返回给前端
         if (StringUtils.isNotBlank(ret)) {
             request.setAttribute("ret", ret);
         }
         String path = "signin.jsp";
+        //进行页面跳转
         request.getRequestDispatcher(path).forward(request, response);
-
     }
 
     @Override
     public void processLogout(HttpServletRequest request, HttpServletResponse response) throws IOException {
         //销毁跟用户关联session,例如有的用户强制关闭浏览器,而跟踪用户的信息的session还存在,可是用户已经离开了。
         request.getSession().invalidate();
+        //session移除了，无法保存登录状态，跳转到登录页面就完事了
         String path = "signin.jsp";
         response.sendRedirect(path);
     }
@@ -132,10 +137,11 @@ public class SysUserServiceImpl implements SysUserService {
         if (checkEmailExist(param.getMail(), param.getId())) {
             throw new ParamException("邮箱已被占用");
         }
-
+        //只是记录日志使用
         SysUser before = sysUserMapper.selectByPrimaryKey(param.getId());
         Preconditions.checkNotNull(before, "待更新的用户不存在");
 
+        //不允许更新密码
         SysUser after = SysUser.builder().id(param.getId()).username(param.getUsername()).telephone(param.getTelephone()).mail(param.getMail())
                 .deptId(param.getDeptId()).status(param.getStatus()).remark(param.getRemark()).build();
         after.setOperator(RequestHolder.getCurrentUser().getUsername());

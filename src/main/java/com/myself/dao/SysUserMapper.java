@@ -25,8 +25,19 @@ public interface SysUserMapper {
 
     int countByTelephone(@Param("telephone") String telephone, @Param("id") Integer id);
 
+    /**
+     * 查询某一个部门用户的用条数
+     * @param deptId
+     * @return
+     */
     int countByDeptId(@Param("deptId") int deptId);
 
+    /**
+     * 分页查询部门用户列表
+     * @param deptId
+     * @param page
+     * @return
+     */
     List<SysUser> getPageByDeptId(@Param("deptId") int deptId, @Param("page") PageQuery page);
 
     List<SysUser> getByIdList(@Param("idList") List<Integer> idList);

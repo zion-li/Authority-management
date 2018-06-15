@@ -20,5 +20,8 @@ public class PageResult<T> {
 
     private List<T> data = Lists.newArrayList();
 
+    /**
+     * 查不到，默认是0
+     */
     private int total = 0;
 }

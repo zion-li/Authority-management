@@ -15,6 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 
+/**
+ * 用户接口开发
+ */
 @Slf4j
 @Controller
 @RequestMapping("/sys/user")
@@ -46,7 +49,7 @@ public class SysUserController {
     }
 
     /**
-     * 用户更新
+     * 用户更新，后台使用的
      * @param param
      * @return
      */
@@ -58,7 +61,7 @@ public class SysUserController {
     }
 
     /**
-     * 分页查询
+     * 分页展示用户列表
      * @param deptId
      * @param pageQuery
      * @return
