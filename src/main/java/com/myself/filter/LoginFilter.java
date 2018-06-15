@@ -15,18 +15,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * 校验用户是否登录
+ */
 @Slf4j
 public class LoginFilter implements Filter {
 
     public void init(FilterConfig filterConfig) throws ServletException {
-
     }
 
+    /**
+     * threadloacl中调用set方法
+     * @param servletRequest
+     * @param servletResponse
+     * @param filterChain
+     * @throws IOException
+     * @throws ServletException
+     */
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse resp = (HttpServletResponse) servletResponse;
 
-        SysUser sysUser = (SysUser)req.getSession().getAttribute("user");
+        SysUser sysUser = (SysUser) req.getSession().getAttribute("user");
         if (sysUser == null) {
             String path = "/signin.jsp";
             resp.sendRedirect(path);
@@ -39,6 +49,5 @@ public class LoginFilter implements Filter {
     }
 
     public void destroy() {
-
     }
 }
